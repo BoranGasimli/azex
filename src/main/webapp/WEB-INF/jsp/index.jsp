@@ -12,5 +12,7 @@
 </head>
 <body>
     <h2>Welcome to AZEX Spring Application.</h2>
+
+    <a href="/register">Register</a>
 </body>
 </html>
