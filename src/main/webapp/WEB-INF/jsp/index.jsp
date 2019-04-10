@@ -11,6 +11,6 @@
     <title>Welcome to AZEX Spring Application</title>
 </head>
 <body>
-    <h2>Welcome to AZEX Spring Application</h2>
+    <h2>Welcome to AZEX Spring Application.</h2>
 </body>
 </html>
