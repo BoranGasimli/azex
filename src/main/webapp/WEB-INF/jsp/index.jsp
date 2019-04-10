@@ -12,6 +12,6 @@
 </head>
 <body>
     <h2>Welcome to AZEX Spring Application</h2>
-<h1>ARAZ</h1>
+<h1>ARAZZ</h1>
 </body>
 </html>
