@@ -8,12 +8,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Test gitlab new title</title>
+    <title>Test gitlab title</title>
 </head>
 <body>
     <h3>Test page changed</h3>
     <p>
-        sample paragraph
+        sample paragraph...
     </p>
+<h1>Gunduz</h1>
 </body>
 </html>
