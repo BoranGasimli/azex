@@ -1,14 +1,18 @@
 package az.itcity.azex.controller;
 
 import az.itcity.azex.service.CommonService;
+import az.itcity.azex.web.TestForm;
+import az.itcity.azex.web.TestFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -16,6 +20,22 @@ public class IndexController {
 
     @Autowired
     private CommonService commonService;
+
+    @Autowired
+    private TestFormValidator testFormValidator;
+
+    @InitBinder
+    protected void initBinder(WebDataBinder dataBinder) {
+        // Form target
+        Object target = dataBinder.getTarget();
+        if (target == null) {
+            return;
+        }
+
+        if (target.getClass() == TestForm.class) {
+            dataBinder.setValidator(testFormValidator);
+        }
+    }
 
     @RequestMapping("/")
     public String index() {
@@ -29,10 +49,10 @@ public class IndexController {
 
     @PostMapping("/register")
     public String registerCustomer(
-            @RequestParam(name="first_name") String firstName,
-            @RequestParam(name="last_name") String lastName,
-            @RequestParam(name="password") String password,
-            @RequestParam(name="password_confirmation") String passwordConfirmation,
+            @RequestParam(name = "first_name") String firstName,
+            @RequestParam(name = "last_name") String lastName,
+            @RequestParam(name = "password") String password,
+            @RequestParam(name = "password_confirmation") String passwordConfirmation,
             RedirectAttributes redirectAttributes
     ) {
         System.out.println("first name = " + firstName);
@@ -55,6 +75,33 @@ public class IndexController {
     ) {
         Boolean check = commonService.checkEmail(email);
         return new ResponseEntity<>(check, HttpStatus.OK);
+    }
+
+    @GetMapping("/test")
+//    @RequestMapping(name = "/test", method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView test() {
+        ModelAndView mav = new ModelAndView("test");
+        TestForm form = new TestForm();
+        form.setName("Fexri");
+        form.setSurname("Afrasiyab");
+        mav.addObject("testFormModel", form);
+        return mav;
+    }
+
+    @PostMapping("/test")
+    public ModelAndView processTestForm(Model model,
+                                        @ModelAttribute("testFormModel") @Validated TestForm form,
+                            BindingResult result) {
+        ModelAndView mav = new ModelAndView();
+
+        if(result.hasErrors()) {
+            mav.setViewName("test");
+        } else {
+            System.out.println("form = " + form);
+            mav.setViewName("redirect:/");
+        }
+
+        return mav;
     }
 
 }
