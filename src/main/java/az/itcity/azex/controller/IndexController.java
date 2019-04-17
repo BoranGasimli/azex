@@ -1,6 +1,8 @@
 package az.itcity.azex.controller;
 
 import az.itcity.azex.service.CommonService;
+import az.itcity.azex.web.RegistrationForm;
+import az.itcity.azex.web.RegistrationFormValidator;
 import az.itcity.azex.web.TestForm;
 import az.itcity.azex.web.TestFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ public class IndexController {
     @Autowired
     private TestFormValidator testFormValidator;
 
+    @Autowired
+    private RegistrationFormValidator registrationFormValidator;
+
     @InitBinder
     protected void initBinder(WebDataBinder dataBinder) {
         // Form target
@@ -35,6 +40,10 @@ public class IndexController {
         if (target.getClass() == TestForm.class) {
             dataBinder.setValidator(testFormValidator);
         }
+
+        if(target.getClass() == RegistrationForm.class) {
+            dataBinder.setValidator(registrationFormValidator);
+        }
     }
 
     @RequestMapping("/")
@@ -43,26 +52,47 @@ public class IndexController {
     }
 
     @GetMapping("/register")
-    public String register() {
-        return "/web/register";
+    public ModelAndView register() {
+        ModelAndView mav = new ModelAndView("/web/register");
+        mav.addObject("registrationForm", new RegistrationForm());
+        return mav;
     }
 
     @PostMapping("/register")
-    public String registerCustomer(
-            @RequestParam(name = "first_name") String firstName,
-            @RequestParam(name = "last_name") String lastName,
-            @RequestParam(name = "password") String password,
-            @RequestParam(name = "password_confirmation") String passwordConfirmation,
-            RedirectAttributes redirectAttributes
+    public ModelAndView registerCustomer(
+            Model model,
+            @ModelAttribute("registrationForm") @Validated  RegistrationForm form,
+            BindingResult result
     ) {
-        System.out.println("first name = " + firstName);
-        System.out.println("last name = " + lastName);
-        System.out.println("password = " + password);
-        System.out.println("password confirmation = " + passwordConfirmation);
-        redirectAttributes.addFlashAttribute("message", "Qeydiyyatınız tamamlandı, profilinizi aktivləşdirmək üçün email adresinizə göndərilmiş linkə daxil olun.");
+        ModelAndView mav = new ModelAndView("redirect:/");
 
-        return "redirect:/login";
+        System.out.println("reg form = " + form);
+
+        if(result.hasErrors()) {
+            mav.setViewName("/web/register");
+        }
+
+        return mav;
     }
+
+
+
+//    @PostMapping("/register")
+//    public String registerCustomer(
+//            @RequestParam(name = "first_name") String firstName,
+//            @RequestParam(name = "last_name") String lastName,
+//            @RequestParam(name = "password") String password,
+//            @RequestParam(name = "password_confirmation") String passwordConfirmation,
+//            RedirectAttributes redirectAttributes
+//    ) {
+//        System.out.println("first name = " + firstName);
+//        System.out.println("last name = " + lastName);
+//        System.out.println("password = " + password);
+//        System.out.println("password confirmation = " + passwordConfirmation);
+//        redirectAttributes.addFlashAttribute("message", "Qeydiyyatınız tamamlandı, profilinizi aktivləşdirmək üçün email adresinizə göndərilmiş linkə daxil olun.");
+//
+//        return "redirect:/login";
+//    }
 
     @GetMapping("/login")
     public String login() {

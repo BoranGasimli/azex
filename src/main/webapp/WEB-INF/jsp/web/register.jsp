@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 
@@ -37,34 +38,38 @@
     <div class="brand">
         <a class="link" href="index.html">AZEX</a>
     </div>
-    <form id="register-form" action="/register" method="post">
+    <form:form id="register-form" action="/register" method="post" modelAttribute="registrationForm">
         <h2 class="login-title">Qeydiyyat</h2>
         <div class="row">
             <div class="col-6">
                 <div class="form-group">
                     <span id="reqFirstName" class="reqError"></span>
-                    <input class="form-control" type="text" id="first_name" name="first_name" placeholder="Ad">
+                    <form:input path="name" cssClass="form-control" id="first_name" placeholder="Ad"/>
+                    <form:errors path="name" cssClass="reqError"/>
                 </div>
             </div>
             <div class="col-6">
                 <div class="form-group">
                     <span id="reqLastName" class="reqError"></span>
-                    <input class="form-control" type="text" id="last_name" name="last_name" placeholder="Soyad">
+                    <form:input path="surname" cssClass="form-control" id="last_name" placeholder="Soyad"/>
+                    <form:errors path="surname" cssClass="reqError"/>
                 </div>
             </div>
         </div>
         <div class="form-group">
             <span id="reqEmail" class="reqError"></span>
-            <input class="form-control" type="text" id="email" name="email" placeholder="Email" autocomplete="off">
+            <form:input path="email" cssClass="form-control" id="email" placeholder="Email" autocomplete="false"/>
+            <form:errors path="email" cssClass="reqError"/>
         </div>
         <div class="form-group">
             <span id="reqPassword" class="reqError"></span>
-            <input class="form-control" id="password" type="password" name="password" placeholder="Şifrə">
+            <form:password path="password" cssClass="form-control" id="password" placeholder="Şifrə" autocomplete="false"/>
+            <form:errors path="password" cssClass="reqError"/>
         </div>
         <div class="form-group">
             <span id="reqPasswordConfirmation" class="reqError"></span>
-            <input class="form-control" type="password" id="password_confirmation" name="password_confirmation"
-                   placeholder="Şifrənin təkrarı">
+            <form:password path="passwordConfirmation" cssClass="form-control" id="password_confirmation" placeholder="Şifrənin təkrarı" autocomplete="false"/>
+            <form:errors path="passwordConfirmation" cssClass="reqError"/>
         </div>
 
         <div class="form-group">
@@ -73,7 +78,7 @@
         <div class="text-center">Profilin var?
             <a class="color-blue" href="/login">Daxil ol</a>
         </div>
-    </form>
+    </form:form>
 </div>
 
 
@@ -168,17 +173,17 @@
             return true;
         }
 
-        $("#register").on("click", function (e) {
-            e.preventDefault();
-
-            console.log('register clicked');
-            if (validateForm()) {
-                console.log('form is valid');
-                $("#register-form").submit();
-            } else {
-                console.log('form is not valid');
-            }
-        });
+        // $("#register").on("click", function (e) {
+        //     e.preventDefault();
+        //
+        //     console.log('register clicked');
+        //     if (validateForm()) {
+        //         console.log('form is valid');
+        //         $("#register-form").submit();
+        //     } else {
+        //         console.log('form is not valid');
+        //     }
+        // });
 
 
         $("#email").on('blur', function (e) {
