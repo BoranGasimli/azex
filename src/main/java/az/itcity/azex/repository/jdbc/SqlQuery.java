@@ -8,4 +8,6 @@ public class SqlQuery {
             "   and c.status = 1 " +
             "    and u.status = 1 " +
             "where u.email = ?";
+
+    public static final String REGISTER_CUSTOMER = "{call register_customer(?, ?, ?, ?, ?, ?, ?)}";
 }

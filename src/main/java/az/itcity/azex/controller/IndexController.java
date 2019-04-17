@@ -1,5 +1,6 @@
 package az.itcity.azex.controller;
 
+import az.itcity.azex.domain.Customer;
 import az.itcity.azex.service.CommonService;
 import az.itcity.azex.web.RegistrationForm;
 import az.itcity.azex.web.RegistrationFormValidator;
@@ -70,6 +71,10 @@ public class IndexController {
 
         if(result.hasErrors()) {
             mav.setViewName("/web/register");
+        } else {
+
+            // TODO create customer object
+            // register customer
         }
 
         return mav;
