@@ -41,6 +41,9 @@
     <form:form id="register-form" action="/register" method="post" modelAttribute="registrationForm">
         <h2 class="login-title">Qeydiyyat</h2>
         <div class="row">
+
+            <form:errors path="*" cssClass="reqError"/>
+
             <div class="col-6">
                 <div class="form-group">
                     <span id="reqFirstName" class="reqError"></span>
@@ -186,33 +189,33 @@
         // });
 
 
-        $("#email").on('blur', function (e) {
-            if (isEmail($("#email").val())) {
-                var val = $("#email").val();
-                $.ajax({
-                    url: getBaseUrl() + "/email?email=" + val,
-                    type: "get",
-                    dataType: 'json',
-                    success: function (data) {
-                        console.log(data);
-                        if (data) {
-                            $("#reqEmail").text("artıq qeydiyyatdan keçib!");
-                            $("#reqEmail").css("color", "red");
-                            $("#reqEmail").show();
-                            $("#register").attr("disabled", true);
-                        } else {
-                            $('#register').attr("disabled", false);
-                        }
-                    }
-                });
-            }
-            else {
-                $("#reqEmail").text("Email doğru deyil!");
-                $("#reqEmail").css("color", "red");
-                $("#reqEmail").show();
-            }
-
-        });
+        // $("#email").on('blur', function (e) {
+        //     if (isEmail($("#email").val())) {
+        //         var val = $("#email").val();
+        //         $.ajax({
+        //             url: getBaseUrl() + "/email?email=" + val,
+        //             type: "get",
+        //             dataType: 'json',
+        //             success: function (data) {
+        //                 console.log(data);
+        //                 if (data) {
+        //                     $("#reqEmail").text("artıq qeydiyyatdan keçib!");
+        //                     $("#reqEmail").css("color", "red");
+        //                     $("#reqEmail").show();
+        //                     $("#register").attr("disabled", true);
+        //                 } else {
+        //                     $('#register').attr("disabled", false);
+        //                 }
+        //             }
+        //         });
+        //     }
+        //     else {
+        //         $("#reqEmail").text("Email doğru deyil!");
+        //         $("#reqEmail").css("color", "red");
+        //         $("#reqEmail").show();
+        //     }
+        //
+        // });
 
     });
 
