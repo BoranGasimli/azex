@@ -1,6 +1,8 @@
 package az.itcity.azex.web;
 
+import az.itcity.azex.service.CommonService;
 import org.apache.commons.validator.routines.EmailValidator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -12,6 +14,9 @@ import static az.itcity.azex.web.WebConstants.*;
 public class RegistrationFormValidator implements Validator {
 
     private EmailValidator emailValidator = EmailValidator.getInstance();
+
+    @Autowired
+    private CommonService commonService;
 
     @Override
     public boolean supports(Class<?> aClass) {
@@ -31,6 +36,7 @@ public class RegistrationFormValidator implements Validator {
 
 
         if(!errors.hasErrors()) {
+
 
             if(form.getName().length() < NAME_MIN_LENGTH) {
                 errors.rejectValue("name", "form.register.name.min.length");
@@ -62,6 +68,10 @@ public class RegistrationFormValidator implements Validator {
 
             if(!emailValidator.isValid(form.getEmail())) {
                 errors.rejectValue("email", "form.register.email.invalid");
+            } else {
+                if(commonService.checkEmail(form.getEmail())) {
+                    errors.rejectValue("email", "form.register.email.duplicate");
+                }
             }
         }
 
