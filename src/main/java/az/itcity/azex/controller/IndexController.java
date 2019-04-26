@@ -1,9 +1,8 @@
 package az.itcity.azex.controller;
 
+import az.itcity.azex.domain.Customer;
 import az.itcity.azex.service.CommonService;
-import az.itcity.azex.web.RegistrationForm;
-import az.itcity.azex.web.RegistrationFormValidator;
-import az.itcity.azex.web.TestFormValidator;
+import az.itcity.azex.web.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class IndexController {
@@ -27,22 +27,22 @@ public class IndexController {
     @Autowired
     private RegistrationFormValidator registrationFormValidator;
 
-    @InitBinder
-    protected void initBinder(WebDataBinder dataBinder) {
-        // Form target
-        Object target = dataBinder.getTarget();
-        if (target == null) {
-            return;
-        }
-
-        if (target.getClass() == TestForm.class) {
-            dataBinder.setValidator(testFormValidator);
-        }
-
-        if(target.getClass() == RegistrationForm.class) {
-            dataBinder.setValidator(registrationFormValidator);
-        }
-    }
+//    @InitBinder
+//    protected void initBinder(WebDataBinder dataBinder) {
+//        // Form target
+//        Object target = dataBinder.getTarget();
+//        if (target == null) {
+//            return;
+//        }
+//
+//        if (target.getClass() == TestForm.class) {
+//            dataBinder.setValidator(testFormValidator);
+//        }
+//
+//        if(target.getClass() == RegistrationForm.class) {
+//            dataBinder.setValidator(registrationFormValidator);
+//        }
+//    }
 
     @RequestMapping("/")
     public String index() {
@@ -59,7 +59,8 @@ public class IndexController {
     @PostMapping("/register")
     public ModelAndView registerCustomer(
             Model model,
-            @ModelAttribute("registrationForm") @Validated  RegistrationForm form,
+//            @ModelAttribute("registrationForm") @Validated  RegistrationForm form,
+            @ModelAttribute("registrationForm") @Validated RegistrationFormNew form,
             BindingResult result
     ) {
         ModelAndView mav = new ModelAndView("redirect:/");
@@ -67,6 +68,9 @@ public class IndexController {
         System.out.println("reg form = " + form);
 
         if(result.hasErrors()) {
+            System.out.println("xeta sayi = " + result.getErrorCount());
+            System.out.println("xetalar = " + result.getAllErrors());
+
             mav.setViewName("/web/register");
         } else {
 
