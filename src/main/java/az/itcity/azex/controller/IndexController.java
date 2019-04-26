@@ -1,10 +1,8 @@
 package az.itcity.azex.controller;
 
-import az.itcity.azex.domain.Customer;
 import az.itcity.azex.service.CommonService;
 import az.itcity.azex.web.RegistrationForm;
 import az.itcity.azex.web.RegistrationFormValidator;
-import az.itcity.azex.web.TestForm;
 import az.itcity.azex.web.TestFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +14,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class IndexController {
@@ -48,7 +45,6 @@ public class IndexController {
     }
 
     @RequestMapping("/")
-
     public String index() {
         return "index";
     }

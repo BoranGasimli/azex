@@ -150,13 +150,13 @@
                 return false;
             } else if (passwordConfirmation.trim() == '') {
                 console.log('validate password confirmation');
-                document.getElementById("reqPassworConfirmation").innerHTML = "Daxil edin!";
+                document.getElementById("reqPasswordConfirmation").innerHTML = "Daxil edin!";
                 $('#password_confirmation').focus();
                 document.getElementById("password_confirmation").style.borderColor = "red";
                 return false;
             } else if(password.localeCompare(passwordConfirmation) != 0) {
                 console.log('validate password == password confirmation');
-                document.getElementById("reqPassworConfirmation").innerHTML = "Şifrələr eyni deyil!";
+                document.getElementById("reqPasswordConfirmation").innerHTML = "Şifrələr eyni deyil!";
                 $('#password_confirmation').focus();
                 document.getElementById("password_confirmation").style.borderColor = "red";
                 return false;
