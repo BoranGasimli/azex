@@ -32,13 +32,12 @@ public class CustomerRepositoryJdbcImpl implements CustomerRepository {
         jdbcTemplate.call(connection -> {
             CallableStatement cs = connection.prepareCall(SqlQuery.REGISTER_CUSTOMER);
             cs.setString(1, customer.getUser().getEmail());
-            cs.setString(2, customer.getUser().getEmail());
-            cs.setString(3, customer.getUser().getName());
-            cs.setString(4, customer.getUser().getSurname());
-            cs.setString(5, customer.getUser().getPassword());
-            cs.setTimestamp(6, Timestamp.valueOf(customer.getUser().getRegistrationDate()));
-            cs.setString(7, customer.getUser().getToken());
-            cs.setTimestamp(8, Timestamp.valueOf(customer.getUser().getTokenExpireDate()));
+            cs.setString(2, customer.getUser().getName());
+            cs.setString(3, customer.getUser().getSurname());
+            cs.setString(4, customer.getUser().getPassword());
+            cs.setTimestamp(5, Timestamp.valueOf(customer.getUser().getRegistrationDate()));
+            cs.setString(6, customer.getUser().getToken());
+            cs.setTimestamp(7, Timestamp.valueOf(customer.getUser().getTokenExpireDate()));
             return cs;
         }, null);
         return null;
