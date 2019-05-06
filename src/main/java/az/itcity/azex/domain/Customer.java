@@ -1,12 +1,17 @@
 package az.itcity.azex.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
 
 public class Customer extends BaseDomain implements Serializable {
 
     private static final long serialVersionUID = 6326890947276549372L;
     private User user;
+
+    @JsonProperty("customer_code")
     private String customerCode;
+
     private String idcard;
     // TODO add other properties
 

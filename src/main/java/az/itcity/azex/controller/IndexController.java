@@ -1,6 +1,7 @@
 package az.itcity.azex.controller;
 
 import az.itcity.azex.domain.Customer;
+import az.itcity.azex.domain.User;
 import az.itcity.azex.service.CommonService;
 import az.itcity.azex.web.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -136,5 +137,21 @@ public class IndexController {
 //
 //        return mav;
 //    }
+
+
+    @GetMapping("/search")
+    @ResponseBody
+    public Customer searchCustomer(@RequestParam("id") long id) {
+        Customer customer = new Customer();
+        customer.setId(id);
+        customer.setCustomerCode("" + id + "abcd");
+        customer.setIdcard("AZE123566"+id);
+        User user = new User();
+        user.setName("Ali");
+        user.setSurname("Mammadov");
+        user.setEmail("ali.mammadov@gmail.com");
+        customer.setUser(user);
+        return customer;
+    }
 
 }
