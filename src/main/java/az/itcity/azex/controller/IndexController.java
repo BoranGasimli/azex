@@ -22,9 +22,6 @@ public class IndexController {
     private CommonService commonService;
 
     @Autowired
-    private TestFormValidator testFormValidator;
-
-    @Autowired
     private RegistrationFormValidator registrationFormValidator;
 
 //    @InitBinder
@@ -113,31 +110,31 @@ public class IndexController {
         return new ResponseEntity<>(check, HttpStatus.OK);
     }
 
-    @GetMapping("/test")
-//    @RequestMapping(name = "/test", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView test() {
-        ModelAndView mav = new ModelAndView("test");
-        TestForm form = new TestForm();
-        form.setName("Fexri");
-        form.setSurname("Afrasiyab");
-        mav.addObject("testFormModel", form);
-        return mav;
-    }
-
-    @PostMapping("/test")
-    public ModelAndView processTestForm(Model model,
-                                        @ModelAttribute("testFormModel") @Validated TestForm form,
-                            BindingResult result) {
-        ModelAndView mav = new ModelAndView();
-
-        if(result.hasErrors()) {
-            mav.setViewName("test");
-        } else {
-            System.out.println("form = " + form);
-            mav.setViewName("redirect:/");
-        }
-
-        return mav;
-    }
+//    @GetMapping("/test")
+////    @RequestMapping(name = "/test", method = {RequestMethod.GET, RequestMethod.POST})
+//    public ModelAndView test() {
+//        ModelAndView mav = new ModelAndView("test");
+//        TestForm form = new TestForm();
+//        form.setName("Boran");
+//        form.setSurname("Qasimli");
+//        mav.addObject("testFormModel", form);
+//        return mav;
+//    }
+//
+//    @PostMapping("/test")
+//    public ModelAndView processTestForm(Model model,
+//                                        @ModelAttribute("testFormModel") @Validated TestForm form,
+//                            BindingResult result) {
+//        ModelAndView mav = new ModelAndView();
+//
+//        if(result.hasErrors()) {
+//            mav.setViewName("test");
+//        } else {
+//            System.out.println("form = " + form);
+//            mav.setViewName("redirect:/");
+//        }
+//
+//        return mav;
+//    }
 
 }

@@ -14,6 +14,7 @@ import java.io.Serializable;
 })
 public class RegistrationFormNew implements Serializable {
 
+
     private static final long serialVersionUID = 4646512818479543788L;
 
     @NotNull
